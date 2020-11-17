@@ -79,7 +79,33 @@ $(document).ready(function() {
 //	HEADER
 	$("h2").css({"color":"#FFF", "background":"#222", "padding":10});
 	$("h3").css({"color":"#222", "background":"#EEE", "padding":4});
-//--------------------------------------------------------------------
+//-------------------------------------------------------------------
+//  VIDEO
+	$("video").css({"display":"block", "margin-left":"auto", "margin-right":"auto", "width":"100%"});
+
+	$("video").attr({"disablePictureInPicture":true});
+	$("video").attr({"data-toggle":"tooltip", "title":"Cliquer pour voir la vidéo", "data-boundary":"viewport", "data-placement":"top"});
+
+	$("video").on("click", function(event) {
+		event.target.play();
+		$(this).tooltip("hide");
+	});
+
+  $("video").mouseenter( function () {
+    $("video").css({"cursor":"pointer"});
+  } ).mouseleave( function () {
+		$("video").css({"cursor":"arrow"});
+	} );
+
+	$("video").next("div").addClass("srt");
+
+	$(".srt").css({"text-align":"center", "font-size":"large", "font-weight":500, color:"azure", "background-color":"lightslategray"});
+
+	$(function () { // enable tooltips
+    $('[data-toggle="tooltip"]').tooltip({delay: {"show": 1000, "hide": 100}});
+  });
+
+//-------------------------------------------------------------------
 //	BLOQUAGE RETURN
 	$(window).keydown(function(event) {
 		if(event.keyCode == 13) {
@@ -91,9 +117,14 @@ $(document).ready(function() {
 
 
 
+
 //**************************************************************************************
 //    F U N C T I O N S
 //**************************************************************************************
+function playVideo(event) {
+
+}
+
 function verifForm(event) {						//  AVANT SUBMIT
 	if (event.type == 'submit') {
 		$("button[type='submit']").attr({"disabled":"disabled"});
@@ -109,7 +140,7 @@ function dateTime() {
 	var month = (dt.getMonth() + 1).toString();
 	if (month.length == 1) month = '0' + month;
 	var year = dt.getYear() + 1900;
-	
+
 	date = year + '-' + month + '-' + date;
 	var time = dt.toTimeString().match(/^(.{8})/)[1];
 	return {date:date, time:time};
